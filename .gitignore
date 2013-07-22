@@ -24,3 +24,7 @@
 *.manifest
 *.rc
 *.ilk
+*.lastbuildstate
+*.cache
+*.idb
+*.opensdf
