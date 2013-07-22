@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{4ef039df-f6a5-41f7-99c4-3f5ea01d4a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS">
+      <UniqueIdentifier>{36aa80f4-ff72-4859-807f-92f0f8e5e205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core">
+      <UniqueIdentifier>{db3bd54e-64d0-4b28-9ea4-e875dca274fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core\Atomics">
+      <UniqueIdentifier>{da7b8c83-3ff0-4742-9f56-4e2d63f76fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core\Blackboard">
+      <UniqueIdentifier>{b5326f27-50d8-43fe-b3da-4ba7f39e10f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core\Globals">
+      <UniqueIdentifier>{a5e4e6f0-bec3-4274-a018-59361a19e96e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core\Memory">
+      <UniqueIdentifier>{ff22da9b-8375-49db-b4c5-f9963bc8c45e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Core\Singleton">
+      <UniqueIdentifier>{bad588ea-9561-46dd-8e42-75047b065372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Input">
+      <UniqueIdentifier>{1a791047-802d-46bb-aca5-742631a21f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math">
+      <UniqueIdentifier>{8e3a54a5-6eec-4e54-8765-68bb9fee332f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Physics">
+      <UniqueIdentifier>{ee85a835-f415-4ecb-84a0-26a5411bac74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Rendering">
+      <UniqueIdentifier>{8acb7555-7a6b-41a5-bf8f-8bd680247265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Rendering\Render Objects">
+      <UniqueIdentifier>{9a7c4973-e2bf-4c67-828b-e4227cd04445}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Rendering\Window">
+      <UniqueIdentifier>{4c40a21c-27ba-44b1-aa92-5aee97596dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Vector">
+      <UniqueIdentifier>{36b074c8-b5d1-43ae-affe-e3bb4719f5a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Quaternion">
+      <UniqueIdentifier>{1b4ad7c4-4239-4b58-82e7-348b44bf7199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\World">
+      <UniqueIdentifier>{0e961156-cddc-40fa-b754-4be02a942f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\World\Entity">
+      <UniqueIdentifier>{b89b9e94-0385-4b37-bd9f-7f7b10919e51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Physics\Rigid Body">
+      <UniqueIdentifier>{6982f99f-ef6f-4bf7-bb58-bf17824d4bf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Rendering\Shader">
+      <UniqueIdentifier>{25d11a81-e008-4dd0-b70e-170a2d92c2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\File Loading">
+      <UniqueIdentifier>{ba05cf2f-8a0d-403f-9a71-9978b4e1c399}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\File Loading\Matrix">
+      <UniqueIdentifier>{1bff2af9-3482-4a71-8540-6359a496b0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Matrix">
+      <UniqueIdentifier>{a0cb5ccd-41e7-47d6-9e69-217a366d41be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\File Loading\Terrain">
+      <UniqueIdentifier>{40a75911-d84e-4c60-9921-52de0dd3ad31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Cubics">
+      <UniqueIdentifier>{3a04ca8d-582e-4c5f-9b0c-83697b3d64a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Cubics\Bezier">
+      <UniqueIdentifier>{46045464-2bc2-47c1-ac74-824ea4d33820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Cubics\B-Spline">
+      <UniqueIdentifier>{1e20a871-39bf-4edd-9e39-1826600545ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Cubics\Bezier\Surface">
+      <UniqueIdentifier>{ec3abc99-2e06-4d8a-af67-799327b30bb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Cubics\B-Spline\Surface">
+      <UniqueIdentifier>{4d4b3dc2-9046-4b8a-bf5a-a476701b65b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\World\Terrain">
+      <UniqueIdentifier>{ee829227-44f4-454f-858c-f1891ee12a02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Rendering\Render Objects\Primitives">
+      <UniqueIdentifier>{d14b4b0d-6301-4862-8ded-b6832e979b52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Camera">
+      <UniqueIdentifier>{1043411e-5357-460d-9ced-151654597a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Math\Constants">
+      <UniqueIdentifier>{5bbf6cf4-bbe7-49be-9feb-b4b6da8720c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Time">
+      <UniqueIdentifier>{8bd05ef3-6c16-4454-bed3-1cb88a85005a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SMURFS\Physics\Polygon">
+      <UniqueIdentifier>{165787f0-9363-4f3e-932f-36500fcace2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SimulationManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Smurfs.cpp">
+      <Filter>SMURFS\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsGlobals.cpp">
+      <Filter>SMURFS\Core\Globals</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsInputManager.cpp">
+      <Filter>SMURFS\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsMain.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsRenderManager.cpp">
+      <Filter>SMURFS\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsWindow.cpp">
+      <Filter>SMURFS\Rendering\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsVector2.cpp">
+      <Filter>SMURFS\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsEntity.cpp">
+      <Filter>SMURFS\World\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsVector3.cpp">
+      <Filter>SMURFS\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsQuaternion.cpp">
+      <Filter>SMURFS\Math\Quaternion</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsRigidBody.cpp">
+      <Filter>SMURFS\Physics\Rigid Body</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsMesh.cpp">
+      <Filter>SMURFS\Rendering\Render Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsPhysicsManager.cpp">
+      <Filter>SMURFS\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsShader.cpp">
+      <Filter>SMURFS\Rendering\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsResourceManager.cpp">
+      <Filter>SMURFS\File Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsMatrix.cpp">
+      <Filter>SMURFS\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainLoader.cpp">
+      <Filter>SMURFS\File Loading\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsBezierSurface.cpp">
+      <Filter>SMURFS\Math\Cubics\Bezier\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsBSplineSurface.cpp">
+      <Filter>SMURFS\Math\Cubics\B-Spline\Surface</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsMatrixReader.cpp">
+      <Filter>SMURFS\File Loading\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsTerrain.cpp">
+      <Filter>SMURFS\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsPrimitiveFactory.cpp">
+      <Filter>SMURFS\Rendering\Render Objects\Primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsCamera.cpp">
+      <Filter>SMURFS\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsTimer.cpp">
+      <Filter>SMURFS\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsPolygon.cpp">
+      <Filter>SMURFS\Physics\Polygon</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsTerrainAnalyzer.cpp">
+      <Filter>SMURFS\World\Terrain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SimulationManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Smurfs.h">
+      <Filter>SMURFS\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsGlobals.h">
+      <Filter>SMURFS\Core\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsInputManager.h">
+      <Filter>SMURFS\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsRenderManager.h">
+      <Filter>SMURFS\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsWindow.h">
+      <Filter>SMURFS\Rendering\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsVector2.h">
+      <Filter>SMURFS\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsEntity.h">
+      <Filter>SMURFS\World\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsVector3.h">
+      <Filter>SMURFS\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsQuaternion.h">
+      <Filter>SMURFS\Math\Quaternion</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsRigidBody.h">
+      <Filter>SMURFS\Physics\Rigid Body</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsMesh.h">
+      <Filter>SMURFS\Rendering\Render Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsPhysicsManager.h">
+      <Filter>SMURFS\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsShader.h">
+      <Filter>SMURFS\Rendering\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsResourceManager.h">
+      <Filter>SMURFS\File Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsMatrix.h">
+      <Filter>SMURFS\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainLoader.h">
+      <Filter>SMURFS\File Loading\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsBezierSurface.h">
+      <Filter>SMURFS\Math\Cubics\Bezier\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsBSplineSurface.h">
+      <Filter>SMURFS\Math\Cubics\B-Spline\Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsMatrixReader.h">
+      <Filter>SMURFS\File Loading\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsSingleton.h">
+      <Filter>SMURFS\Core\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsTerrain.h">
+      <Filter>SMURFS\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsPrimitiveFactory.h">
+      <Filter>SMURFS\Rendering\Render Objects\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsCamera.h">
+      <Filter>SMURFS\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsMathConstants.h">
+      <Filter>SMURFS\Math\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsTimer.h">
+      <Filter>SMURFS\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsPolygon.h">
+      <Filter>SMURFS\Physics\Polygon</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsTerrainAnalyzer.h">
+      <Filter>SMURFS\World\Terrain</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
