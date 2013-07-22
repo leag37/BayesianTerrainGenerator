@@ -54,8 +54,6 @@ void Terrain::generateTerrain(void) {
 	// Generate the terrain types from the grid of terrain polygons
 	generateTypes();
 
-	//generateMesh();
-
 	// Generate the mesh
 	generateMeshFromPolygons();
 }
@@ -280,110 +278,6 @@ void Terrain::generateMeshFromPolygons(void) {
 	// Delete the arrays now since we don't need them anymore
 	delete[] polygonVertices;
 	delete[] polygonColors;
-
-	mesh->modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -28.0f));
-}
-
-/**************************************************************************************************
-* Generate a sequence of vertices from the mesh, also generates colors
-**************************************************************************************************/
-void Terrain::generateMesh(void) {
-	// Size of array will be determined by number of polygons able to be generated from the surface 
-	// grid times 3
-	// Number of polygons is area of array times two
-	unsigned int polyNum = (surface->getWidth()-1) * (surface->getHeight()-1) * 2;
-	
-	// Declare the array, the number of polygons * 3 vertices per poly * 3 floats per vertex
-	float* polygons = new float[polyNum * 9];
-	float* colors = new float[polyNum * 9];
-	float r, g, b;	// Color values for vertex
-	r = g = b = 0.0f;
-	unsigned int currentIndex = 0;	// The current index within the array
-
-	for(unsigned int i = 0; i < surface->getWidth() - 1; i++) {
-		for(unsigned int j = 0; j < surface->getHeight() - 1; j++) {
-			// Top left
-			polygons[currentIndex] = surface->getVertices()[i][j].x;
-			polygons[currentIndex + 1] = surface->getVertices()[i][j].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i][j].z;
-
-			// Calculate colors for appropriate height values
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-
-			currentIndex += 3;
-
-			// Top right
-			polygons[currentIndex] = surface->getVertices()[i][j + 1].x;
-			polygons[currentIndex + 1] = surface->getVertices()[i][j + 1].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i][j + 1].z;
-			
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-
-			currentIndex += 3;
-
-			// Bottom left
-			polygons[currentIndex] = surface->getVertices()[i + 1][j].x; 
-			polygons[currentIndex + 1] = surface->getVertices()[i + 1][j].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i + 1][j].z;
-			
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-			
-			currentIndex += 3;
-			
-			// Bottom left
-			polygons[currentIndex] = surface->getVertices()[i + 1][j].x; 
-			polygons[currentIndex + 1] = surface->getVertices()[i + 1][j].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i + 1][j].z;
-			
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-			
-			currentIndex += 3;
-			
-			// Top right
-			polygons[currentIndex] = surface->getVertices()[i][j + 1].x; 
-			polygons[currentIndex + 1] = surface->getVertices()[i][j + 1].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i][j + 1].z;
-			
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-			
-			currentIndex += 3;
-			
-			// Bottom right
-			polygons[currentIndex] = surface->getVertices()[i + 1][j + 1].x; 
-			polygons[currentIndex + 1] = surface->getVertices()[i + 1][j + 1].y;
-			polygons[currentIndex + 2] = surface->getVertices()[i + 1][j + 1].z;
-			
-			calculateColorsFromHeight(polygons[currentIndex + 1], r, g, b);
-			colors[currentIndex] = r; // R
-			colors[currentIndex + 1] = g; // G
-			colors[currentIndex + 2] = b; // B
-			
-			currentIndex += 3;
-		}
-	}
-
-	// Create the mesh based on the the vertices and the colors
-	mesh = new Mesh(S_TRIANGLES);
-	mesh->createMesh(polygons, colors, polyNum * 9);
-
-	// Delete the arrays now since we don't need them anymore
-	delete[] polygons;
-	delete[] colors;
 
 	mesh->modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -28.0f));
 }
