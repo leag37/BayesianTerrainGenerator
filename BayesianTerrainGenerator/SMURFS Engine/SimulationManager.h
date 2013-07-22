@@ -6,9 +6,16 @@
 #ifndef __SIMULATIONMANAGER_H__
 #define __SIMULATIONMANAGER_H__
 
+#ifndef SMURFDEBUG
+#if defined(_DEBUG) || defined(DEBUG)
+#define SMURFDEBUG
+#endif // _DEBUG || DEBUG
+#endif // SMURFDEBUG
+
 #include <stdio.h>
 #include <time.h>
 #include <Windows.h>
+#include <sstream>
 #include <vector>
 
 #include "SmurfsEntity.h"
@@ -35,6 +42,10 @@ public:
 	void gameLoop(void);	// Update
 
 	int getNumEntities(void);	// returns the number of entities in the world
+
+private:
+	void calcFPS();	// Calculate and log FPS
+
 private:
 
 	std::vector<Entity*> entityList;	// all entities on the screen
@@ -47,6 +58,12 @@ private:
 	Terrain* terrain;
 	
 	int numEntities;		// the number of entities in the world
+
+	// Current number of frames
+	unsigned int _numFrames;
+	float _fps;
+	Timer _timer;
+	ostringstream _buff;
 };
 
 #endif

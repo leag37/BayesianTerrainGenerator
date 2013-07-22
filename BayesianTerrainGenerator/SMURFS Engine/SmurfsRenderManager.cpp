@@ -28,7 +28,7 @@ RenderManager::~RenderManager(void) {
 void RenderManager::startUp(void) {
 	// Initialize a new window
 	_window = new Window();
-	_window->startUp(L"SMURFS Engine", 640, 480);
+	_window->startUp(L"SMURFS Engine", 1280, 720);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);	// Set a black background
 	shader = new Shader("..\\Shaders\\shader.vert", "..\\Shaders\\shader.frag");	// Initialize the shader

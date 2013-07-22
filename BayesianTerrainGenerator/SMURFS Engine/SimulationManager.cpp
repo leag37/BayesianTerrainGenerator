@@ -38,6 +38,15 @@ void SimulationManager::startUp(void) {
 	terrain = new Terrain();
 	terrain->generateTerrain();
 	renderManager->addToScene(terrain->getMesh());
+
+	// TEMP
+	_numFrames = 0;
+	_fps = 0.0f;
+	
+	// Setup a timer
+#ifdef SMURFDEBUG
+	_timer.setupTimer();
+#endif
 }
 
 // Shutdown
@@ -65,6 +74,12 @@ void SimulationManager::gameLoop(void) {
 	BOOL done = FALSE;	// Bool variable to exit loop
 
 	while( !done ) {
+
+#ifdef SMURFDEBUG
+		// Query for FPS
+		calcFPS();
+#endif
+
 		// Is there a message waiting?
 		if( PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) ) {
 			// Have we received a quit message?
@@ -79,23 +94,6 @@ void SimulationManager::gameLoop(void) {
 			// handle input
 			inputManager->handleInput();
 
-			// Run if the game is not paused
-			if(!getGamePaused()) {
-				// Update physics
-				physicsManager->update();
-
-				// Post-physics update
-				// Define start and end of vector
-				std::vector<Entity*>::iterator begin = entityList.begin();
-				std::vector<Entity*>::iterator end = entityList.end();
-
-				// Iterate through the list and update each object
-				for(std::vector<Entity*>::iterator itr = begin; itr != end; ++itr) {
-					// Apply update
-					(*itr)->postPhysicsUpdate();
-				}
-			}
-
 			// Draw the scene
 			renderManager->renderScene();
 		}
@@ -104,3 +102,27 @@ void SimulationManager::gameLoop(void) {
 
 // getter for the number of entities in the world
 int SimulationManager::getNumEntities(void) { return numEntities; }
+
+// Calculate FPS
+void SimulationManager::calcFPS()
+{
+	// Increment frames
+	++_numFrames;
+
+	// Get the current tick
+	_fps += _timer.getDeltaTime();
+
+	// Exceeded one frame
+	if(_fps >= 1.0f)
+	{
+		// Log fps
+		_buff << "FPS: ";
+		_buff << _numFrames;
+		_buff << endl;
+		OutputDebugStringA((LPCSTR) _buff.str().c_str());
+		_buff.clear();
+		_buff.str("");
+		_numFrames = 0;
+		_fps = 0.0f;
+	}
+}

@@ -13,7 +13,7 @@ Camera::Camera(void) {
 	rotationAngle = glm::vec3(0.0f, 0.0f, 0.0f);
 	viewMatrix = glm::mat4(1.0f);
 
-	moveSpeed = 10.0f;
+	moveSpeed = 1000.0f;
 	rotationSpeed = 20.0f;
 
 	forward = Vector3(0.0f, 0.0f, 0.0f);
