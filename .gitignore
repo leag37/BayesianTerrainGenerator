@@ -17,4 +17,10 @@
 *.ipch
 *.tlog
 *.pdb
+*.log
 
+# Other stuff
+*.exe
+*.manifest
+*.rc
+*.ilk
