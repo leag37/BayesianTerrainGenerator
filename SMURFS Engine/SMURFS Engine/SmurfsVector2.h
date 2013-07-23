@@ -6,7 +6,12 @@
 #ifndef __SMURFSVECTOR2_H__
 #define __SMURFSVECTOR2_H__
 
+#include <cmath>
 #include <math.h>
+
+#ifndef PI
+#define PI 3.1415927f
+#endif // PI
 
 class Vector2 {
 public:
@@ -21,6 +26,8 @@ public:
 	Vector2 normalVector(void);	// Return the normal to this vector
 
 	float dot(Vector2 v);	// Dot product with another vector
+	Vector2 floor();		// Return a vector composed of the floor of this function
+	Vector2 mod(int inMod);	// Mod this vector by a given value
 
 	// Overload operators
 	Vector2 operator*(const float &);
@@ -34,5 +41,8 @@ public:
 
 	float x,y;	// Vector components
 };
+
+extern Vector2 Vec2CosineInterpolation(const Vector2& a, const Vector2& b, float t);
+extern Vector2 Vec2Scale(const Vector2& v, float s);
 
 #endif

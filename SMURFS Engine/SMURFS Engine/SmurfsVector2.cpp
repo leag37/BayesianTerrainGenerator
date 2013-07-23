@@ -78,6 +78,26 @@ float Vector2::dot(Vector2 v) {
 	return x * v.x + y * v.y;
 }
 
+// Floor of this vector
+Vector2 Vector2::floor()
+{
+	return Vector2(std::floorf(x), std::floorf(y));
+}
+
+Vector2 Vector2::mod(int inMod)
+{
+	// First, cast values to integers
+	int intX = static_cast<int>(x);
+	int intY = static_cast<int>(y);
+
+	// Mod each value
+	intX %= inMod;
+	intY %= inMod;
+
+	// Convert back to float and return
+	return Vector2(static_cast<float>(intX), static_cast<float>(intY));
+}
+
 /**************************************************************************************************
 * Multiplication (dot product)
 **************************************************************************************************/
@@ -136,4 +156,17 @@ void Vector2::operator-=(const Vector2 &v) {
 void Vector2::operator/=(const float &v) {
 	x /= v;
 	y /= v;
+}
+
+Vector2 Vec2CosineInterpolation(const Vector2& a, const Vector2& b, float t)
+{
+	float ft = t * PI;
+	float f = (1.0f - std::cosf(ft)) * 0.5f;
+
+	return Vec2Scale(a, 1.0f - f) + Vec2Scale(b, f);
+}
+
+Vector2 Vec2Scale(const Vector2& v, float s)
+{
+	return Vector2(v.x * s, v.y * s);
 }

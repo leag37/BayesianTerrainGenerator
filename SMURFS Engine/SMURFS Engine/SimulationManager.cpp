@@ -42,6 +42,7 @@ void SimulationManager::startUp(void) {
 	// Terrain 2.0 stuff
 	SeedPermutation();
 	HeightMap hm = HeightMap(20, 20, -20.0f, 20.0f);
+	hm.generate();
 
 	// TEMP
 	_numFrames = 0;

@@ -8,6 +8,7 @@
 #define __SMURFSTERRAINCHUNK_H__
 
 #include "SmurfsMesh.h"
+#include <Windows.h>
 
 class TerrainChunk
 {
@@ -16,8 +17,8 @@ public:
 private:
 	Mesh* _mesh;
 
-	float _xWidth;
-	float _zWidth;
+	FLOAT _xWidth;
+	FLOAT _zWidth;
 };
 
 #endif // __SMURFSTERRAINCUNK_H__

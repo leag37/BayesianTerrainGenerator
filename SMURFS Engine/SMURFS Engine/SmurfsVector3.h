@@ -7,6 +7,7 @@
 #define __SMURFSVECTOR3_H__
 
 #include <math.h>
+#include <cmath>
 
 class Quaternion;
 
@@ -25,6 +26,8 @@ public:
 
 	Vector3 cross(Vector3 v);	// Cross product with another vector
 	float dot(Vector3 v);	// Dot product with another vector
+
+	Vector3 floor();	// Conduct a floor operation on all attributes of the vector
 
 	void rotate(Quaternion q);	// Rotate the vector by a quaternion
 
