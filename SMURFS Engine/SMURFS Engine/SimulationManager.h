@@ -26,6 +26,8 @@
 #include "SmurfsMatrixReader.h"
 #include "SmurfsTerrain.h"
 
+#include "SmurfsHeightMap.h"
+
 #define MAX_ENTITIES 750
 
 class SimulationManager : public Singleton<SimulationManager> {

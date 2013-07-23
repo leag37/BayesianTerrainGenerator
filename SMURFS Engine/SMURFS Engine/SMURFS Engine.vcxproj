@@ -82,6 +82,7 @@
     <ClCompile Include="SmurfsCamera.cpp" />
     <ClCompile Include="SmurfsBezierSurface.cpp" />
     <ClCompile Include="SmurfsBSplineSurface.cpp" />
+    <ClCompile Include="SmurfsHeightMap.cpp" />
     <ClCompile Include="SmurfsMatrix.cpp" />
     <ClCompile Include="SmurfsMatrixReader.cpp" />
     <ClCompile Include="SmurfsPolygon.cpp" />
@@ -108,6 +109,7 @@
     <ClCompile Include="TerrainLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SmurfsHeightMap.h" />
     <ClInclude Include="SmurfsPolygon.h" />
     <ClInclude Include="SmurfsCamera.h" />
     <ClInclude Include="SmurfsBezierSurface.h" />
@@ -131,6 +133,7 @@
     <ClInclude Include="SmurfsResourceManager.h" />
     <ClInclude Include="SmurfsTerrain.h" />
     <ClInclude Include="SmurfsTerrainAnalyzer.h" />
+    <ClInclude Include="SmurfsTerrainChunk.h" />
     <ClInclude Include="SmurfsTimer.h" />
     <ClInclude Include="SmurfsVector2.h" />
     <ClInclude Include="SmurfsVector3.h" />

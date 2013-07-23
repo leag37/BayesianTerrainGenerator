@@ -110,6 +110,15 @@
     <Filter Include="SMURFS\Physics\Polygon">
       <UniqueIdentifier>{165787f0-9363-4f3e-932f-36500fcace2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{971fb06e-f4ed-4cab-a757-b6b406f083c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\TerrainChunk">
+      <UniqueIdentifier>{be94966a-223b-4357-92ca-1a128ffa6f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain\HeightMap">
+      <UniqueIdentifier>{93050ea6-c509-4e12-8555-f43940596520}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimulationManager.cpp">
@@ -192,6 +201,9 @@
     </ClCompile>
     <ClCompile Include="SmurfsTerrainAnalyzer.cpp">
       <Filter>SMURFS\World\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsHeightMap.cpp">
+      <Filter>Terrain\HeightMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +290,12 @@
     </ClInclude>
     <ClInclude Include="SmurfsTerrainAnalyzer.h">
       <Filter>SMURFS\World\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsTerrainChunk.h">
+      <Filter>Terrain\TerrainChunk</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsHeightMap.h">
+      <Filter>Terrain\HeightMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

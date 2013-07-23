@@ -37,7 +37,7 @@ Mesh* PrimitiveFactory::createSphere(float radius, int segments) {
 
 	// Define and initialize an array of points
 	Vector3* points = new Vector3[numPoints];
-	for(int i = 0; i < numPoints; i++)
+	for(unsigned int i = 0; i < numPoints; i++)
 		points[i] = Vector3();
 
 	// Iterate through and define all points that compose the circle

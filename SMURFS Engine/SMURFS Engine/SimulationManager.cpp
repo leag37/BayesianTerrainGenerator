@@ -39,6 +39,10 @@ void SimulationManager::startUp(void) {
 	terrain->generateTerrain();
 	renderManager->addToScene(terrain->getMesh());
 
+	// Terrain 2.0 stuff
+	SeedPermutation();
+	HeightMap hm = HeightMap(20, 20, -20.0f, 20.0f);
+
 	// TEMP
 	_numFrames = 0;
 	_fps = 0.0f;
