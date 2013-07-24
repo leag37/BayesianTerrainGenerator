@@ -11,20 +11,26 @@ HeightMap::HeightMap()
 { }
 
 // Default constructor
-HeightMap::HeightMap(UINT inXWidth, UINT inZWidth, FLOAT inMinHeight, FLOAT inMaxHeight)
-	:	_heightMap(0), 
+HeightMap::HeightMap(
+	FLOAT inXWidth, FLOAT inZWidth, 
+	FLOAT inMinHeight, FLOAT inMaxHeight,
+	FLOAT inStartX, FLOAT inStartZ,
+	UINT inResolution)
+	:	_heightMap(0), _flowMap(0), 
 		_xWidth(inXWidth), _zWidth(inZWidth),
-		_minHeight(inMinHeight), _maxHeight(inMaxHeight)
+		_minHeight(inMinHeight), _maxHeight(inMaxHeight),
+		_startX(inStartX), _startZ(inStartZ),
+		_resolution(inResolution)
 { 
 	// Initialize the height and flow map
-	_flowMap = new Vector3*[_xWidth];
-	_heightMap = new FLOAT*[_xWidth];
-	for(UINT i = 0; i < _xWidth; ++i)
+	_flowMap = new Vector3*[_resolution];
+	_heightMap = new FLOAT*[_resolution];
+	for(UINT i = 0; i < _resolution; ++i)
 	{
-		_flowMap[i] = new Vector3[_zWidth];
-		_heightMap[i] = new FLOAT[_zWidth];
+		_flowMap[i] = new Vector3[_resolution];
+		_heightMap[i] = new FLOAT[_resolution];
 
-		for(UINT j = 0; j < _zWidth; ++j)
+		for(UINT j = 0; j < _resolution; ++j)
 		{
 			_flowMap[i][j] = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
 			_heightMap[i][j] = 0.0f;
@@ -40,6 +46,33 @@ HeightMap::~HeightMap()
 
 }
 
+// Height map height data
+FLOAT** HeightMap::heightMap()
+{
+	return _heightMap;
+}
+
+// Heightmap properties
+UINT HeightMap::mapXWidth()
+{
+	return _resolution;
+}
+
+UINT HeightMap::mapZWidth()
+{
+	return _resolution;
+}
+
+FLOAT HeightMap::minHeight()
+{
+	return _minHeight;
+}
+
+FLOAT HeightMap::maxHeight()
+{
+	return _maxHeight;
+}
+
 // Generate the height map
 void HeightMap::generate()
 {
@@ -50,12 +83,10 @@ void HeightMap::generate()
 	seedFlowMap();
 
 	// Iterate through the height map and generate noise for each coordinate
-	for(UINT i = 0; i < _xWidth; ++i)
+	for(UINT i = 0; i < _resolution; ++i)
 	{
-		for(UINT j = 0; j < _zWidth; ++j)
+		for(UINT j = 0; j < _resolution; ++j)
 		{
-			//FLOAT a = noise(static_cast<FLOAT>(i), static_cast<FLOAT>(j), 0.0f);
-
 			FLOAT val = calcPerlinNoise(static_cast<FLOAT>(i) * _perlinScale, static_cast<FLOAT>(j) * _perlinScale, 0.0f, 50);
 			_heightMap[i][j] = val * range + _minHeight;
 		}
@@ -69,9 +100,9 @@ void HeightMap::seedFlowMap()
 	FLOAT fRandMax = static_cast<FLOAT>(RAND_MAX) * 0.5f;
 
 	// Iterate through each possible value of the flow map and assign a random unit vector
-	for(UINT i = 0; i < _xWidth; ++i)
+	for(UINT i = 0; i < _resolution; ++i)
 	{
-		for(UINT j = 0; j < _zWidth; ++j)
+		for(UINT j = 0; j < _resolution; ++j)
 		{
 			// Check whether we need to initialize this value
 			if(_flowMap[i][j] == Vector3(FLT_MAX, FLT_MAX, FLT_MAX))
@@ -92,34 +123,6 @@ void HeightMap::seedFlowMap()
 			}
 		}
 	}
-
-}
-
-// Height map height data
-FLOAT** HeightMap::heightMap()
-{
-	return _heightMap;
-}
-
-// Heightmap properties
-UINT HeightMap::mapXWidth()
-{
-	return _xWidth;
-}
-
-UINT HeightMap::mapZWidth()
-{
-	return _zWidth;
-}
-
-FLOAT HeightMap::minHeight()
-{
-	return _minHeight;
-}
-
-FLOAT HeightMap::maxHeight()
-{
-	return _maxHeight;
 }
 
 // Calculate perlin noise for an x-z coordinate pair
@@ -151,8 +154,8 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 			sy += y;
 			sz += z;
 
-			FLOAT xFrequency = frequency / static_cast<FLOAT>(_xWidth);
-			FLOAT yFrequency = frequency / static_cast<FLOAT>(_zWidth);
+			FLOAT xFrequency = frequency / static_cast<FLOAT>(_resolution);
+			FLOAT yFrequency = frequency / static_cast<FLOAT>(_resolution);
 			FLOAT noise = calcRandomNoise(sx * xFrequency, sy * yFrequency, sz * frequency);//calcInterpolatedPerlinNoise(x * frequency, z * frequency);
 			interpolatedNoise += noise;
 		}
@@ -163,54 +166,6 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 	}
 
 	return noise;
-}
-
-// Calculate interpolated value for perlin noise
-FLOAT HeightMap::calcInterpolatedPerlinNoise(FLOAT x, FLOAT z)
-{
-	// Find fractional remainder and floor of both x and z
-	FLOAT floorX = floorf(x);
-	FLOAT fracX = x - floorX;
-
-	FLOAT floorZ = floorf(z);
-	FLOAT fracZ = z - floorZ;
-
-	// Find the smoothed noise for the surrounding points
-	FLOAT v1 = calcSmoothedPerlinNoise(floorX, floorZ);
-	FLOAT v2 = calcSmoothedPerlinNoise(floorX + 1.0f, floorZ);
-	FLOAT v3 = calcSmoothedPerlinNoise(floorX, floorZ + 1.0f);
-	FLOAT v4 = calcSmoothedPerlinNoise(floorX + 1.0f, floorZ + 1.0f);
-
-	FLOAT i1 = calcInterpolation(v1, v2, fracX);
-	FLOAT i2 = calcInterpolation(v3, v4, fracX);
-
-	return calcInterpolation(i1, i2, fracZ);
-}
-
-// Calculate smoothed noise for a given value
-FLOAT HeightMap::calcSmoothedPerlinNoise(FLOAT x, FLOAT z)
-{
-	// Create spans for x and z
-	FLOAT xNeg = x - 1;
-	FLOAT xPos = x + 1;
-
-	FLOAT zNeg = z - 1;
-	FLOAT zPos = z + 1;	
-
-/*	// Calculate corner values
-	FLOAT corners =	(calcRandomNoise(xNeg, zNeg) + 
-					calcRandomNoise(xPos, zNeg) + 
-					calcRandomNoise(xNeg, zPos) + 
-					calcRandomNoise(xPos, zPos)) / 
-					16.0f;
-	FLOAT sides =	(calcRandomNoise(xNeg, z) + 
-					calcRandomNoise(xPos, z) + 
-					calcRandomNoise(x, zNeg) + 
-					calcRandomNoise(x, zPos)) /
-					8.0f;
-	FLOAT center = calcRandomNoise(x, z) / 4.0f;
-	return corners + sides + center;*/
-	return 0.0f;
 }
 
 // Interpolate between two values
@@ -234,12 +189,12 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 	UINT Y = static_cast<INT>(floorY) & 255;
 	UINT Z = static_cast<INT>(floorZ) & 255;
 
-	UINT xx = static_cast<INT>(x) % _xWidth;
-	UINT yy = static_cast<INT>(y) % _zWidth;
+	UINT xx = static_cast<INT>(x) % _resolution;
+	UINT yy = static_cast<INT>(y) % _resolution;
 	UINT zz = static_cast<INT>(z);
 
-	UINT xx1 = clampu(xx + 1, 0, _xWidth - 1);
-	UINT yy1 = clampu(yy + 1, 0, _zWidth - 1);
+	UINT xx1 = clampu(xx + 1, 0, _resolution - 1);
+	UINT yy1 = clampu(yy + 1, 0, _resolution - 1);
 	UINT zz1 = zz;
 	
 	// Find the relative x and z of the point in the square
@@ -272,7 +227,7 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 	FLOAT lerp2 = calcInterpolation(grad3, grad4, fadeX);
 	FLOAT lerp3 = calcInterpolation(lerp1, lerp2, fadeY);
 	return lerp3;
-
+/*
 
 	FLOAT gradAA = calcGradient(NOISE_PERMUTATION[AA], x, y, z);
 	FLOAT gradBA = calcGradient(NOISE_PERMUTATION[BA], x - 1, y, z);
@@ -291,7 +246,7 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 
 	FLOAT cmbLerp1 = calcInterpolation(lerpAABA, lerpABBB, fadeY);
 	FLOAT cmbLerp2 = calcInterpolation(lerpAABA1, lerpABBB1, fadeY);
-	return calcInterpolation(cmbLerp1, cmbLerp2, fadeZ);
+	return calcInterpolation(cmbLerp1, cmbLerp2, fadeZ);*/
 }
 
 // Calculate the fade curve

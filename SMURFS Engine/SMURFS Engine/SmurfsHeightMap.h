@@ -23,13 +23,20 @@ public:
 	HeightMap();
 
 	// Constructor
-	HeightMap(UINT inXWidth, UINT inZWidth, FLOAT inMinHeight, FLOAT inMaxHeight);
-
+	HeightMap(
+		FLOAT inXWidth, FLOAT inZWidth, 
+		FLOAT inMinHeight, FLOAT inMaxHeight,
+		FLOAT inStartX, FLOAT inStartZ,
+		UINT inResolution);
+	
 	// Destructor
 	~HeightMap();
 
 	// Generate based on seeded values
 	void generate();
+
+	// Prefill the flowmap with other height maps
+	void prefillFlowMap(const HeightMap& hm);
 
 	// Height map height data
 	FLOAT** heightMap();
@@ -44,12 +51,6 @@ public:
 private:
 	// Calculate perlin noise
 	FLOAT calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples);
-
-	// Calculate interpolated value for perlin noise
-	FLOAT calcInterpolatedPerlinNoise(FLOAT x, FLOAT z);
-
-	// Calculate smoothed noise for a given value
-	FLOAT calcSmoothedPerlinNoise(FLOAT x, FLOAT z);
 
 	// Interpolate between two values
 	FLOAT calcInterpolation(FLOAT a, FLOAT b, FLOAT t);
@@ -77,11 +78,17 @@ private:
 	Vector3** _flowMap;
 
 	// Heightmap properties
-	UINT _xWidth;
-	UINT _zWidth;
+	UINT _resolution;
 	FLOAT _minHeight;
 	FLOAT _maxHeight;
 
+	// Physical properties of map
+	FLOAT _startX;
+	FLOAT _startZ;
+	
+	FLOAT _xWidth;
+	FLOAT _zWidth;
+	
 	// Perlin noise scale property
 	FLOAT _perlinScale;
 };

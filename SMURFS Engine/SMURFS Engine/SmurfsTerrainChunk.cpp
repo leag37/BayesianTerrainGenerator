@@ -153,10 +153,10 @@ void TerrainChunk::genMeshFromHeightMap()
 
 Vector3 TerrainChunk::assignColor(FLOAT x, FLOAT y, FLOAT z)
 {
-	if(y < 0.35)		return water;
-	else if(y < 0.45)	return sand;
+	if(y < 0.25)		return water;
+	else if(y < 0.40)	return sand;
 	else if(y < 0.70)	return grass;
-	else if(y < 0.90)	return rock;
+	else if(y < 0.95)	return rock;
 	else				return snow;
 }
 
