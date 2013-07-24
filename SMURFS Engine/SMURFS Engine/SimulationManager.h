@@ -27,6 +27,7 @@
 #include "SmurfsTerrain.h"
 
 #include "SmurfsHeightMap.h"
+#include "SmurfsTerrainChunk.h"
 
 #define MAX_ENTITIES 750
 

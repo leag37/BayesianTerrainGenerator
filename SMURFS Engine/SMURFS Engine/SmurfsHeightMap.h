@@ -8,6 +8,9 @@
 
 #include <Windows.h>
 #include <cmath>
+#include <limits>
+#include "SmurfsMathUtils.h"
+#include "SmurfsVector3.h"
 
 #ifndef PI
 #define PI 3.1415927f
@@ -28,9 +31,19 @@ public:
 	// Generate based on seeded values
 	void generate();
 
+	// Height map height data
+	FLOAT** heightMap();
+
+	// Heightmap properties
+	UINT mapXWidth();
+	UINT mapZWidth();
+
+	FLOAT minHeight();
+	FLOAT maxHeight();
+
 private:
 	// Calculate perlin noise
-	FLOAT calcPerlinNoise(FLOAT x, FLOAT z);
+	FLOAT calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples);
 
 	// Calculate interpolated value for perlin noise
 	FLOAT calcInterpolatedPerlinNoise(FLOAT x, FLOAT z);
@@ -42,17 +55,26 @@ private:
 	FLOAT calcInterpolation(FLOAT a, FLOAT b, FLOAT t);
 
 	// Create random noise
-	FLOAT calcRandomNoise(FLOAT x, FLOAT z);
+	FLOAT calcRandomNoise(FLOAT x, FLOAT y, FLOAT z);
 	
 	// Calculate the fade curve
 	FLOAT calcFadeCurve(FLOAT t);
 
 	// Calculate the gradient
-	FLOAT calcGradient(INT hash, FLOAT x, FLOAT z); 
+	FLOAT calcGradient(INT hash, FLOAT x, FLOAT y, FLOAT z); 
+
+	// Calculate the gradient based on integer values
+	FLOAT calcGrad(INT hash, UINT x, UINT y, UINT z);
+
+	// Seed the flow map with random unit vectors
+	void seedFlowMap();
 
 private:
 	// Height map height data
 	FLOAT** _heightMap;
+
+	// Flow map with directional weights
+	Vector3** _flowMap;
 
 	// Heightmap properties
 	UINT _xWidth;
@@ -65,7 +87,7 @@ private:
 };
 
 // Static related noise things
-static UINT NOISE_PERMUTATION[256];
+static UINT NOISE_PERMUTATION[512];
 extern void SeedPermutation();
 
 #endif // __SMURFSHEIGHTMAP_H__

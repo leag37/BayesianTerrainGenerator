@@ -205,6 +205,12 @@
     <ClCompile Include="SmurfsHeightMap.cpp">
       <Filter>Terrain\HeightMap</Filter>
     </ClCompile>
+    <ClCompile Include="SmurfsTerrainChunk.cpp">
+      <Filter>Terrain\TerrainChunk</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsMathUtils.cpp">
+      <Filter>SMURFS\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimulationManager.h">
@@ -296,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="SmurfsHeightMap.h">
       <Filter>Terrain\HeightMap</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsMathUtils.h">
+      <Filter>SMURFS\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
