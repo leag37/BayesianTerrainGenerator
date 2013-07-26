@@ -94,7 +94,10 @@ void HeightMap::generate()
 
 			val /= 0.87f;	// Expected normal range of the noise function
 			FLOAT height = (val + 1.0f) * range + _minHeight;
-			_heightMap[i][j] = height;
+			if(_heightMap[i][j] == FLT_MAX)
+			{
+				_heightMap[i][j] = height;
+			}
 		}
 	}
 }
