@@ -26,6 +26,8 @@ public:
 
 	void handleInput(void);		// handles both mouse and keyboard input
 
+	bool shouldAddChunk();
+
 private:
 	void handleKeyboardInput(void);		// handles all keyboard input
 	void handleMouseInput(void);		// handles mouse input
@@ -35,6 +37,10 @@ private:
 
 	float lastMouseX;	// the previous mouse x position
 	float lastMouseY;	// the previous mouse y position
+
+	// TEMP
+	bool _shouldAddChunk;
+	bool _canAddChunk;
 };
 
 #endif

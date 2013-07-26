@@ -114,6 +114,12 @@ void SimulationManager::gameLoop(void) {
 				renderManager->addToScene(_terrainMap.addToRenderList().back());
 				_terrainMap.addToRenderList().pop_back();
 			}
+
+			// Should we add a chunk?
+			if(inputManager->shouldAddChunk())
+			{
+				_terrainMap.addChunk();
+			}
 		}
 	}
 }

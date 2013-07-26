@@ -18,6 +18,7 @@ InputManager::InputManager(void) {
 	GetCursorPos(&mousePos);
 	lastMouseX = (float) mousePos.x;
 	lastMouseY = (float) mousePos.y;
+	_shouldAddChunk = false;
 }
 
 // Destructor
@@ -81,6 +82,18 @@ void InputManager::handleKeyboardInput(void) {
 		//moveRight *= -1.0f;
 		RenderManager::getSingletonPtr()->getCamera()->moveRelative(moveRight);
 	}
+	if((GetKeyState(0x58) & 0x80)) {		// X
+		// Add a new chunk
+		if(_canAddChunk == true)
+		{
+			_shouldAddChunk = true;
+			_canAddChunk = false;
+		}
+	}
+	else
+	{
+		_canAddChunk = true;
+	}
 	if((GetKeyState(VK_ESCAPE) & 0x80)) {
 		// Quit the application
 		PostQuitMessage(0);
@@ -139,4 +152,14 @@ void InputManager::checkScreenWrap(void) {
 		SetCursorPos(mousePos.x, screen.bottom - 1);
 		lastMouseY = (float) (screen.bottom - 1.0f);
 	}
+}
+
+bool InputManager::shouldAddChunk()
+{
+	if(_shouldAddChunk)
+	{
+		_shouldAddChunk = false;
+		return true;
+	}
+	return false;
 }
