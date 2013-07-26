@@ -33,7 +33,7 @@ HeightMap::HeightMap(
 		for(UINT j = 0; j < _resolution; ++j)
 		{
 			_flowMap[i][j] = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
-			_heightMap[i][j] = 0.0f;
+			_heightMap[i][j] = FLT_MAX;
 		}
 	}
 
@@ -52,13 +52,14 @@ FLOAT** HeightMap::heightMap()
 	return _heightMap;
 }
 
-// Heightmap properties
-UINT HeightMap::mapXWidth()
+// Flow map data
+Vector3** HeightMap::flowMap()
 {
-	return _resolution;
+	return _flowMap;
 }
 
-UINT HeightMap::mapZWidth()
+// Heightmap properties
+UINT HeightMap::resolution()
 {
 	return _resolution;
 }
@@ -77,7 +78,7 @@ FLOAT HeightMap::maxHeight()
 void HeightMap::generate()
 {
 	// Calculate range
-	FLOAT range = _maxHeight - _minHeight;
+	FLOAT range = (_maxHeight - _minHeight) * 0.5f;
 
 	// Seed the flow map
 	seedFlowMap();
@@ -88,7 +89,12 @@ void HeightMap::generate()
 		for(UINT j = 0; j < _resolution; ++j)
 		{
 			FLOAT val = calcPerlinNoise(static_cast<FLOAT>(i) * _perlinScale, static_cast<FLOAT>(j) * _perlinScale, 0.0f, 50);
-			_heightMap[i][j] = val * range + _minHeight;
+
+			//FLOAT dist = plotDistribution(val);
+
+			val /= 0.87f;	// Expected normal range of the noise function
+			FLOAT height = (val + 1.0f) * range + _minHeight;
+			_heightMap[i][j] = height;
 		}
 	}
 }
@@ -131,7 +137,7 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 	// Setup noise values
 	FLOAT noise = 0;
 	FLOAT persistence = 0.5f;
-	UINT numOctaves = 3;
+	UINT numOctaves = 4;
 	
 	// Loop through each octave to create noise
 	for(UINT i = 0; i < numOctaves; ++i)
@@ -156,8 +162,8 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 
 			FLOAT xFrequency = frequency / static_cast<FLOAT>(_resolution);
 			FLOAT yFrequency = frequency / static_cast<FLOAT>(_resolution);
-			FLOAT noise = calcRandomNoise(sx * xFrequency, sy * yFrequency, sz * frequency);//calcInterpolatedPerlinNoise(x * frequency, z * frequency);
-			interpolatedNoise += noise;
+			FLOAT tNoise = calcRandomNoise(sx * xFrequency, sy * xFrequency, sz * frequency);//calcInterpolatedPerlinNoise(x * frequency, z * frequency);
+			interpolatedNoise += tNoise;
 		}
 		interpolatedNoise /= static_cast<FLOAT>(numSamples);
 
@@ -226,8 +232,8 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 	FLOAT lerp1 = calcInterpolation(grad1, grad2, fadeX);
 	FLOAT lerp2 = calcInterpolation(grad3, grad4, fadeX);
 	FLOAT lerp3 = calcInterpolation(lerp1, lerp2, fadeY);
-	return lerp3;
-/*
+	//return lerp3;
+
 
 	FLOAT gradAA = calcGradient(NOISE_PERMUTATION[AA], x, y, z);
 	FLOAT gradBA = calcGradient(NOISE_PERMUTATION[BA], x - 1, y, z);
@@ -246,7 +252,7 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 
 	FLOAT cmbLerp1 = calcInterpolation(lerpAABA, lerpABBB, fadeY);
 	FLOAT cmbLerp2 = calcInterpolation(lerpAABA1, lerpABBB1, fadeY);
-	return calcInterpolation(cmbLerp1, cmbLerp2, fadeZ);*/
+	return calcInterpolation(cmbLerp1, cmbLerp2, fadeZ);
 }
 
 // Calculate the fade curve
@@ -273,7 +279,40 @@ FLOAT HeightMap::calcGrad(INT hash, UINT x, UINT y, UINT z)
 	Vector3 grad = _flowMap[x][y];
 
 	// Hash
-	return calcGradient(hash, grad.x, grad.y, grad.z);
+	FLOAT val = calcGradient(hash, grad.x, grad.y, grad.z);
+	return val;
+}
+
+// Prefill the flowmap with other height maps
+void HeightMap::prefillFlowMap(HeightMap* hm)
+{
+	// Find the side of interest for prefill
+	//			x x x
+	//			x x x
+	//			x x x
+	//	  o o o	- - -
+	//	  o o o	- - - 
+	//	  o o o	- - - 
+	// startX(o) = 1, startZ(o) = 4
+	// startX(-) = 4, startZ(-) = 4
+	// startX(x) = 4, startZ(x) = 1
+	Vector3** fm = hm->flowMap();
+	if(_startX == hm->startX())
+	{
+		// Prefill top side, so we must make the first row of this chunk equivalent to the last row of the previous chunk
+		for(UINT i = 0; i < _resolution; ++i)
+		{
+			_flowMap[0][i] = fm[_resolution][i];
+		}
+	}
+	else if(_startZ == hm->startZ())
+	{
+		// Prefil left side so we must make the left-most column of this chunk equivalent to the right-most column of the previous chunk
+		for(UINT i = 0; i < _resolution; ++i)
+		{
+			_flowMap[i][0] = fm[i][_resolution];
+		}
+	}
 }
 
 // Seed the perlin noise permutation

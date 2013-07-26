@@ -6,6 +6,10 @@
 #ifndef __SMURFSHEIGHTMAP_H__
 #define __SMURFSHEIGHTMAP_H__
 
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
+#endif
+
 #include <Windows.h>
 #include <cmath>
 #include <limits>
@@ -36,17 +40,23 @@ public:
 	void generate();
 
 	// Prefill the flowmap with other height maps
-	void prefillFlowMap(const HeightMap& hm);
+	void prefillFlowMap(HeightMap* hm);
 
 	// Height map height data
 	FLOAT** heightMap();
 
+	// Flow map data
+	Vector3** flowMap();
+
 	// Heightmap properties
-	UINT mapXWidth();
-	UINT mapZWidth();
+	UINT resolution();
 
 	FLOAT minHeight();
 	FLOAT maxHeight();
+	FLOAT startX() { return _startX; }
+	FLOAT startZ() { return _startZ; }
+	const FLOAT startX() const { return _startX; }
+	const FLOAT startZ() const { return _startZ; }
 
 private:
 	// Calculate perlin noise

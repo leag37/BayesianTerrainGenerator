@@ -119,6 +119,9 @@
     <Filter Include="Terrain\HeightMap">
       <UniqueIdentifier>{93050ea6-c509-4e12-8555-f43940596520}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Terrain\TerrainMap">
+      <UniqueIdentifier>{02ed16f7-d33a-45cf-bb09-4059d991845d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SimulationManager.cpp">
@@ -210,6 +213,9 @@
     </ClCompile>
     <ClCompile Include="SmurfsMathUtils.cpp">
       <Filter>SMURFS\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="SmurfsTerrainMap.cpp">
+      <Filter>Terrain\TerrainMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="SmurfsMathUtils.h">
       <Filter>SMURFS\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="SmurfsTerrainMap.h">
+      <Filter>Terrain\TerrainMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

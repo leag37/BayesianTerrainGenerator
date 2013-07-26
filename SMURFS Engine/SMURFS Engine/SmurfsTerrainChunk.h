@@ -24,6 +24,11 @@ public:
 	// Generate a mesh from a height map
 	void genMeshFromHeightMap();
 
+	// Starting x
+	FLOAT startX() { return _xStart; }
+	FLOAT startZ() { return _zStart; }
+	HeightMap* heightMap() { return _hm; }
+
 private:
 	Mesh* _mesh;
 

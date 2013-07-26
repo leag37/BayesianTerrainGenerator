@@ -28,6 +28,7 @@
 
 #include "SmurfsHeightMap.h"
 #include "SmurfsTerrainChunk.h"
+#include "SmurfsTerrainMap.h"
 
 #define MAX_ENTITIES 750
 
@@ -61,6 +62,9 @@ private:
 	Terrain* terrain;
 	
 	int numEntities;		// the number of entities in the world
+
+	// Terrain map
+	TerrainMap _terrainMap;
 
 	// Current number of frames
 	unsigned int _numFrames;

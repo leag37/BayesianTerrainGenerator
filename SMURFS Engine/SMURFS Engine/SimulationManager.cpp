@@ -41,12 +41,14 @@ void SimulationManager::startUp(void) {
 
 	// Terrain 2.0 stuff
 	SeedPermutation();
-	HeightMap hm = HeightMap(50.0f, 50.0f, 0.0f, 10.0f, 0.0f, 0.0f, 50);
-	hm.generate();
+	//HeightMap hm = HeightMap(20.0f, 20.0f, 0.0f, 10.0f, 0.0f, 0.0f, 20);
+	//hm.generate();
 
-	TerrainChunk tc = TerrainChunk(&hm);
-	tc.genMeshFromHeightMap();
-	renderManager->addToScene(tc.mesh());
+	//TerrainChunk tc = TerrainChunk(&hm);
+	//tc.genMeshFromHeightMap();
+	//renderManager->addToScene(tc.mesh());
+	_terrainMap = TerrainMap(0.0f, 10.0f, 20.0f, 20.0f, 20);
+	_terrainMap.addChunk();
 
 	// TEMP
 	_numFrames = 0;
@@ -105,6 +107,13 @@ void SimulationManager::gameLoop(void) {
 
 			// Draw the scene
 			renderManager->renderScene();
+
+			// Add a chunk if we need to
+			if(_terrainMap.addToRenderList().size() > 0)
+			{
+				renderManager->addToScene(_terrainMap.addToRenderList().back());
+				_terrainMap.addToRenderList().pop_back();
+			}
 		}
 	}
 }

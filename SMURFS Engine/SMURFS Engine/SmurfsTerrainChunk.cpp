@@ -30,7 +30,7 @@ void TerrainChunk::genMeshFromHeightMap()
 	// END TEMP
 
 	// Calculate the number of polygons
-	UINT numPolygons = _hm->mapXWidth() * _hm->mapZWidth() << 1;
+	UINT numPolygons = _hm->resolution() * _hm->resolution() << 1;
 
 	// Get array of vertices
 	FLOAT* verts = new FLOAT[numPolygons * 9];
@@ -46,12 +46,12 @@ void TerrainChunk::genMeshFromHeightMap()
 	// Get the heightmap
 	FLOAT** hm = _hm->heightMap();
 
-	for(UINT i = 0; i < _hm->mapXWidth() - 1; ++i)
+	for(UINT i = 0; i < _hm->resolution() - 1; ++i)
 	{
 		// Convert i to x value
 		FLOAT x1 = static_cast<FLOAT>(i);
 		FLOAT x2 = x1 + 1.0f;
-		for(UINT j = 0; j < _hm->mapZWidth() - 1; ++j)
+		for(UINT j = 0; j < _hm->resolution() - 1; ++j)
 		{
 			// Get the z value for the first polygon-square
 			FLOAT z1 = static_cast<FLOAT>(j);
@@ -64,10 +64,10 @@ void TerrainChunk::genMeshFromHeightMap()
 			FLOAT y4 = hm[i    ][j + 1];
 
 			// Assign colors
-			FLOAT wx1 = x1 / _hm->mapXWidth();
-			FLOAT wx2 = (x1 + 1.0f) / _hm->mapXWidth();
-			FLOAT wz1 = z1 / _hm->mapZWidth();
-			FLOAT wz2 = (z1 + 1.0f) / _hm->mapZWidth();
+			FLOAT wx1 = x1 / _hm->resolution();
+			FLOAT wx2 = (x1 + 1.0f) / _hm->resolution();
+			FLOAT wz1 = z1 / _hm->resolution();
+			FLOAT wz2 = (z1 + 1.0f) / _hm->resolution();
 			Vector3 color1 = assignColor(wx1, (y1 + colorOffset) / colorScale, wz1);
 			Vector3 color2 = assignColor(wx2, (y2 + colorOffset) / colorScale, wz1);
 			Vector3 color3 = assignColor(wx1, (y3 + colorOffset) / colorScale, wz2);

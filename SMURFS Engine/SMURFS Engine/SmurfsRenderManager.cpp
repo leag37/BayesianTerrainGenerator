@@ -35,7 +35,7 @@ void RenderManager::startUp(void) {
 
 	// Create our perspective projection matrix
 	projectionMatrix = glm::perspective(60.0f, (float)getWindowWidth()/(float)getWindowHeight(), 
-		0.1f, 100.0f);
+		0.1f, 1000.0f);
 
 	// Initialize the camera
 	camera = new Camera();

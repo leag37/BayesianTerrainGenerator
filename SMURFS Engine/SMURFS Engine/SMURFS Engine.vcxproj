@@ -104,6 +104,7 @@
     <ClCompile Include="SmurfsTerrain.cpp" />
     <ClCompile Include="SmurfsTerrainAnalyzer.cpp" />
     <ClCompile Include="SmurfsTerrainChunk.cpp" />
+    <ClCompile Include="SmurfsTerrainMap.cpp" />
     <ClCompile Include="SmurfsTimer.cpp" />
     <ClCompile Include="SmurfsVector2.cpp" />
     <ClCompile Include="SmurfsVector3.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="SmurfsTerrain.h" />
     <ClInclude Include="SmurfsTerrainAnalyzer.h" />
     <ClInclude Include="SmurfsTerrainChunk.h" />
+    <ClInclude Include="SmurfsTerrainMap.h" />
     <ClInclude Include="SmurfsTimer.h" />
     <ClInclude Include="SmurfsVector2.h" />
     <ClInclude Include="SmurfsVector3.h" />
