@@ -232,7 +232,7 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 	FLOAT lerp1 = calcInterpolation(grad1, grad2, fadeX);
 	FLOAT lerp2 = calcInterpolation(grad3, grad4, fadeX);
 	FLOAT lerp3 = calcInterpolation(lerp1, lerp2, fadeY);
-	//return lerp3;
+	return lerp3;
 
 
 	FLOAT gradAA = calcGradient(NOISE_PERMUTATION[AA], x, y, z);
@@ -302,7 +302,7 @@ void HeightMap::prefillFlowMap(HeightMap* hm)
 		// Prefill top side, so we must make the first row of this chunk equivalent to the last row of the previous chunk
 		for(UINT i = 0; i < _resolution; ++i)
 		{
-			_flowMap[0][i] = fm[_resolution][i];
+			_flowMap[0][i] = fm[_resolution - 1][i];
 		}
 	}
 	else if(_startZ == hm->startZ())
@@ -310,7 +310,7 @@ void HeightMap::prefillFlowMap(HeightMap* hm)
 		// Prefil left side so we must make the left-most column of this chunk equivalent to the right-most column of the previous chunk
 		for(UINT i = 0; i < _resolution; ++i)
 		{
-			_flowMap[i][0] = fm[i][_resolution];
+			_flowMap[i][0] = fm[i][_resolution - 1];
 		}
 	}
 }

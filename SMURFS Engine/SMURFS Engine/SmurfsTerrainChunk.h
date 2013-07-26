@@ -17,7 +17,7 @@ class TerrainChunk
 public:
 	TerrainChunk();
 
-	TerrainChunk(HeightMap* hm);
+	TerrainChunk(HeightMap* hm, FLOAT startX, FLOAT startZ, FLOAT xWidth, FLOAT zWidth);
 
 	Mesh* mesh();
 

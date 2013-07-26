@@ -61,7 +61,8 @@ void TerrainMap::addChunk()
 		//	if(sxz < szx) choose sx, sxz
 		//	if(szx < sxz) choose szx, sz
 		//	if(sxz == szx) choose sx, sxz
-		FLOAT startX, startZ = 0.0f;
+		FLOAT startX = 0.0f;
+		FLOAT startZ = 0.0f;
 		if(chooseX < chooseZ)
 		{
 			startX = chooseX;
@@ -101,7 +102,7 @@ void TerrainMap::addChunkAt(FLOAT x, FLOAT z)
 
 	// We have prefilled, so now we may create the height map
 	hm->generate();
-	TerrainChunk* chunk = new TerrainChunk(hm);
+	TerrainChunk* chunk = new TerrainChunk(hm, x, z, _chunkXWidth, _chunkZWidth);
 	chunk->genMeshFromHeightMap();
 	
 	// Push this onto the list

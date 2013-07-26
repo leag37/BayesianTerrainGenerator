@@ -47,7 +47,7 @@ void SimulationManager::startUp(void) {
 	//TerrainChunk tc = TerrainChunk(&hm);
 	//tc.genMeshFromHeightMap();
 	//renderManager->addToScene(tc.mesh());
-	_terrainMap = TerrainMap(0.0f, 10.0f, 20.0f, 20.0f, 20);
+	_terrainMap = TerrainMap(0.0f, 10.0f, 20.0f, 20.0f, 21);
 	_terrainMap.addChunk();
 
 	// TEMP

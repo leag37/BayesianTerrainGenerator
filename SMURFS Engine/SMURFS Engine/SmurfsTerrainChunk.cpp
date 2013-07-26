@@ -6,9 +6,9 @@ TerrainChunk::TerrainChunk()
 
 }
 
-TerrainChunk::TerrainChunk(HeightMap* hm)
+TerrainChunk::TerrainChunk(HeightMap* hm, FLOAT startX, FLOAT startZ, FLOAT xWidth, FLOAT zWidth)
+	:	_hm(hm), _xStart(startX), _zStart(startZ), _xWidth(xWidth), _zWidth(zWidth)
 {
-	_hm = hm;
 }
 
 
@@ -148,7 +148,7 @@ void TerrainChunk::genMeshFromHeightMap()
 	delete[] verts;
 	delete[] colors;
 
-	_mesh->modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -28.0f));
+	_mesh->modelMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(_hm->startX(), 0.0f, _hm->startZ()));
 }
 
 Vector3 TerrainChunk::assignColor(FLOAT x, FLOAT y, FLOAT z)
