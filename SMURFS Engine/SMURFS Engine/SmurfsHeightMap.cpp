@@ -22,15 +22,18 @@ HeightMap::HeightMap(
 		_startX(inStartX), _startZ(inStartZ),
 		_resolution(inResolution)
 { 
-	// Initialize the height and flow map
-	_flowMap = new Vector3*[_resolution];
-	_heightMap = new FLOAT*[_resolution];
-	for(UINT i = 0; i < _resolution; ++i)
-	{
-		_flowMap[i] = new Vector3[_resolution];
-		_heightMap[i] = new FLOAT[_resolution];
+	// Padding for resolution
+	_resolutionArrayPadding = 2;
 
-		for(UINT j = 0; j < _resolution; ++j)
+	// Initialize the height and flow map
+	_flowMap = new Vector3*[_resolution + _resolutionArrayPadding];
+	_heightMap = new FLOAT*[_resolution + _resolutionArrayPadding];
+	for(UINT i = 0; i < _resolution + _resolutionArrayPadding; ++i)
+	{
+		_flowMap[i] = new Vector3[_resolution + _resolutionArrayPadding];
+		_heightMap[i] = new FLOAT[_resolution + _resolutionArrayPadding];
+
+		for(UINT j = 0; j < _resolution + _resolutionArrayPadding; ++j)
 		{
 			_flowMap[i][j] = Vector3(FLT_MAX, FLT_MAX, FLT_MAX);
 			_heightMap[i][j] = FLT_MAX;
@@ -74,34 +77,6 @@ FLOAT HeightMap::maxHeight()
 	return _maxHeight;
 }
 
-// Generate the height map
-void HeightMap::generate()
-{
-	// Calculate range
-	FLOAT range = (_maxHeight - _minHeight) * 0.5f;
-
-	// Seed the flow map
-	seedFlowMap();
-
-	// Iterate through the height map and generate noise for each coordinate
-	for(UINT i = 0; i < _resolution; ++i)
-	{
-		for(UINT j = 0; j < _resolution; ++j)
-		{
-			FLOAT val = calcPerlinNoise(static_cast<FLOAT>(i) * _perlinScale, static_cast<FLOAT>(j) * _perlinScale, 0.0f, 50);
-
-			//FLOAT dist = plotDistribution(val);
-
-			val /= 0.87f;	// Expected normal range of the noise function
-			FLOAT height = (val + 1.0f) * range + _minHeight;
-			if(_heightMap[i][j] == FLT_MAX)
-			{
-				_heightMap[i][j] = height;
-			}
-		}
-	}
-}
-
 // Seed the flow map with random unit vectors
 void HeightMap::seedFlowMap()
 {
@@ -109,9 +84,9 @@ void HeightMap::seedFlowMap()
 	FLOAT fRandMax = static_cast<FLOAT>(RAND_MAX) * 0.5f;
 
 	// Iterate through each possible value of the flow map and assign a random unit vector
-	for(UINT i = 0; i < _resolution; ++i)
+	for(UINT i = 0; i < _resolution + _resolutionArrayPadding; ++i)
 	{
-		for(UINT j = 0; j < _resolution; ++j)
+		for(UINT j = 0; j < _resolution + _resolutionArrayPadding; ++j)
 		{
 			// Check whether we need to initialize this value
 			if(_flowMap[i][j] == Vector3(FLT_MAX, FLT_MAX, FLT_MAX))
@@ -130,6 +105,43 @@ void HeightMap::seedFlowMap()
 				// Set as the flow vector for this index
 				_flowMap[i][j] = v;
 			}
+			else
+			{
+				int a =0;
+			}
+		}
+	}
+}
+
+// Generate the height map
+void HeightMap::generate()
+{
+	// Calculate range
+	FLOAT range = (_maxHeight - _minHeight) * 0.5f;
+
+	// Seed the flow map
+	seedFlowMap();
+
+	// Iterate through the height map and generate noise for each coordinate
+	FLOAT xPadding = _xWidth / static_cast<FLOAT>(_resolution);
+	FLOAT zPadding = _zWidth / static_cast<FLOAT>(_resolution);
+	for(UINT i = 0; i < _resolution + _resolutionArrayPadding; ++i)
+	{
+		// Calc theoretical x value
+		FLOAT x = _startX + (static_cast<FLOAT>(i) * xPadding);
+		for(UINT j = 0; j < _resolution + _resolutionArrayPadding; ++j)
+		{
+			FLOAT z = _startZ + (static_cast<FLOAT>(j) * zPadding);
+			FLOAT val = calcPerlinNoise(x * _perlinScale, z * _perlinScale, 0.0f, 1);
+
+			//FLOAT dist = plotDistribution(val);
+
+			val /= 0.87f;	// Expected normal range of the noise function
+			FLOAT height = (val + 1.0f) * range + _minHeight;
+			if(_heightMap[i][j] == FLT_MAX)
+			{
+				_heightMap[i][j] = height;
+			}
 		}
 	}
 }
@@ -140,7 +152,7 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 	// Setup noise values
 	FLOAT noise = 0;
 	FLOAT persistence = 0.5f;
-	UINT numOctaves = 4;
+	UINT numOctaves = 3;
 	
 	// Loop through each octave to create noise
 	for(UINT i = 0; i < numOctaves; ++i)
@@ -164,7 +176,6 @@ FLOAT HeightMap::calcPerlinNoise(FLOAT x, FLOAT y, FLOAT z, UINT numSamples)
 			sz += z;
 
 			FLOAT xFrequency = frequency / static_cast<FLOAT>(_resolution);
-			FLOAT yFrequency = frequency / static_cast<FLOAT>(_resolution);
 			FLOAT tNoise = calcRandomNoise(sx * xFrequency, sy * xFrequency, sz * frequency);//calcInterpolatedPerlinNoise(x * frequency, z * frequency);
 			interpolatedNoise += tNoise;
 		}
@@ -202,8 +213,8 @@ FLOAT HeightMap::calcRandomNoise(FLOAT x, FLOAT y, FLOAT z)
 	UINT yy = static_cast<INT>(y) % _resolution;
 	UINT zz = static_cast<INT>(z);
 
-	UINT xx1 = clampu(xx + 1, 0, _resolution - 1);
-	UINT yy1 = clampu(yy + 1, 0, _resolution - 1);
+	UINT xx1 = clampu(xx + 1, 0, _resolution);
+	UINT yy1 = clampu(yy + 1, 0, _resolution);
 	UINT zz1 = zz;
 	
 	// Find the relative x and z of the point in the square
@@ -300,20 +311,38 @@ void HeightMap::prefillFlowMap(HeightMap* hm)
 	// startX(-) = 4, startZ(-) = 4
 	// startX(x) = 4, startZ(x) = 1
 	Vector3** fm = hm->flowMap();
+	FLOAT** heightMap = hm->heightMap();
+
+	// Seed map with all possible rows after starting point (this way the flow map will slowly 
+	// re-randomize and the period will increase drastically)
+	FLOAT frequency = 1.0f / static_cast<FLOAT>(_resolution);
+	FLOAT x = (hm->startX() + hm->xWidth()) * frequency;
+	FLOAT y = (hm->startZ() + hm->zWidth()) * frequency;
+	UINT xx = static_cast<INT>(x) % _resolution;
+	UINT yy = static_cast<INT>(y) % _resolution;
+
 	if(_startX == hm->startX())
 	{
 		// Prefill top side, so we must make the first row of this chunk equivalent to the last row of the previous chunk
-		for(UINT i = 0; i < _resolution; ++i)
+		for(UINT i = 0; i < _resolution + _resolutionArrayPadding; ++i)
 		{
-			_flowMap[0][i] = fm[_resolution - 1][i];
+			for(UINT j = yy; j < _resolution + _resolutionArrayPadding; ++j)
+			{
+				_flowMap[i][j] = fm[i][j];
+			}
+			_heightMap[i][0] = heightMap[i][_resolution];
 		}
 	}
 	else if(_startZ == hm->startZ())
 	{
 		// Prefil left side so we must make the left-most column of this chunk equivalent to the right-most column of the previous chunk
-		for(UINT i = 0; i < _resolution; ++i)
+		for(UINT i = 0; i < _resolution + _resolutionArrayPadding; ++i)
 		{
-			_flowMap[i][0] = fm[i][_resolution - 1];
+			for(UINT j = xx; j < _resolution + _resolutionArrayPadding; ++j)
+			{
+				_flowMap[j][i] = fm[j][i];
+			}
+			_heightMap[0][i] = heightMap[_resolution][i];
 		}
 	}
 }

@@ -103,7 +103,7 @@ void InputManager::handleKeyboardInput(void) {
 // Handles mouse input
 void InputManager::handleMouseInput(void) {
 	// Check screen wrap
-	//checkScreenWrap();
+	checkScreenWrap();
 	
 	// Find the current mouse positions
 	POINT mousePos;

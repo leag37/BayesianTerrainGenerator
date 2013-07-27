@@ -55,6 +55,8 @@ public:
 	FLOAT maxHeight();
 	FLOAT startX() { return _startX; }
 	FLOAT startZ() { return _startZ; }
+	FLOAT xWidth() { return _xWidth; }
+	FLOAT zWidth() { return _zWidth; }
 	const FLOAT startX() const { return _startX; }
 	const FLOAT startZ() const { return _startZ; }
 
@@ -101,6 +103,8 @@ private:
 	
 	// Perlin noise scale property
 	FLOAT _perlinScale;
+
+	UINT _resolutionArrayPadding;
 };
 
 // Static related noise things

@@ -41,13 +41,8 @@ void SimulationManager::startUp(void) {
 
 	// Terrain 2.0 stuff
 	SeedPermutation();
-	//HeightMap hm = HeightMap(20.0f, 20.0f, 0.0f, 10.0f, 0.0f, 0.0f, 20);
-	//hm.generate();
-
-	//TerrainChunk tc = TerrainChunk(&hm);
-	//tc.genMeshFromHeightMap();
-	//renderManager->addToScene(tc.mesh());
-	_terrainMap = TerrainMap(0.0f, 10.0f, 20.0f, 20.0f, 21);
+	
+	_terrainMap = TerrainMap(0.0f, 20.0f, 40.0f, 40.0f, 40);
 	_terrainMap.addChunk();
 
 	// TEMP
